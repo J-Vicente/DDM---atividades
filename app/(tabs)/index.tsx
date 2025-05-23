@@ -1,75 +1,112 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+export default function ContadorSimples() {
 
-export default function HomeScreen() {
+  const [contador, setContador] = useState(0);
+  const [mensagem, setMensagem] = useState('');
+
+  function aumentar() {
+    setContador(contador + 1);
+    setMensagem('');
+  }
+
+  function diminuir() {
+    setContador(contador - 1);
+    setMensagem('');
+  }
+
+  function resetar() {
+    setContador(0);
+    setMensagem('Contador reiniciado!');
+  }
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <Text style={styles.titulo}>Contador App</Text>
+
+      <Text style={styles.contador}>{contador}</Text>
+
+      <Text style={styles.mensagem}>{mensagem}</Text>
+
+       <View style={styles.botoesContainer}>
+        <TouchableOpacity style={[styles.botao, styles.diminuir]} onPress={diminuir}>
+          <Text style={styles.textoBotao}>-</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.botao, styles.resetar]} onPress={resetar}>
+          <Text style={styles.textoBotao}>Reset</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.botao, styles.aumentar]} onPress={aumentar}>
+          <Text style={styles.textoBotao}>+</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
     alignItems: 'center',
-    gap: 8,
+    justifyContent: 'center',
+    backgroundColor: '#ededed',
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  titulo: {
+    fontSize: 24,
+    marginBottom: 20,
+    fontWeight:900,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  contador: {
+    fontSize: 40,
+    fontWeight: 900,
+    marginBottom: 20,
+    backgroundColor: '#ffffff',
+    paddingHorizontal: '14%',
+    paddingVertical: '10%',
+    borderRadius: 150,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+  },
+  mensagem:{
+    fontSize: 16,
+    color: '#555',
+    marginBottom: 30,
+  },
+  diminuir: {
+    backgroundColor: '#ff6b6b',
+  },
+  resetar: {
+    backgroundColor: '##4ecdc4',   
+  },
+  aumentar: {
+    backgroundColor: '#5ac9a5',
+  },
+    botoesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '65%',
+    marginBottom: 40,
+  },
+  botao: {
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    height: 70,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+  },
+  textoBotao: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: '900',
   },
 });

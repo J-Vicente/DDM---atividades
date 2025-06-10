@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff6b6b',
   },
   resetar: {
-    backgroundColor: '##4ecdc4',   
+    backgroundColor: '#4ecdc4',   
   },
   aumentar: {
     backgroundColor: '#5ac9a5',
